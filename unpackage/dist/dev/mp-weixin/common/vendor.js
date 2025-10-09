@@ -21840,6 +21840,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 48));
+var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
 var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 18));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 50));
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
@@ -22290,45 +22291,33 @@ var _default = {
     addDishAction: function addDishAction(item, form) {
       var _this10 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee7() {
-        var params;
+        var requestData;
         return _regenerator.default.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                if (!(_this10.openMoreNormPop && (!_this10.flavorDataes || _this10.flavorDataes.length <= 0))) {
-                  _context7.next = 3;
-                  break;
-                }
-                uni.showToast({
-                  title: "请选择规格",
-                  icon: "none"
-                });
-                return _context7.abrupt("return", false);
-              case 3:
+                // 规格检查...
                 _this10.openMoreNormPop = false;
-                // 实时更新obj.newCardNumber新添加的字段----加入购物车数量number
-                _this10.tablewareNumber++;
-                _this10.dishDetailes.dishNumber++;
 
-                // 构建参数 - 只传递 goodId，移除其他字段
-                params = {
-                  goodId: item.id // 只传递 goodId
+                // 确保数据正确传递
+                requestData = {
+                  goodId: item.id
                 };
+                console.log("准备发送的数据:", requestData);
+                console.log("数据类型:", (0, _typeof2.default)(requestData));
+                console.log("数据字符串化:", JSON.stringify(requestData));
 
-                console.log("发送的购物车参数:", params); // 调试日志
-
-                (0, _api.newAddShoppingCartAdd)(params).then(function (res) {
+                // 立即发送，避免数据被修改
+                (0, _api.newAddShoppingCartAdd)(requestData).then(function (res) {
                   if (res.code === 1) {
-                    // 调用一次购物车集合---初始化
                     _this10.getTableOrderDishListes();
-                    // 重新调取刷新右侧具体菜品列表
                     _this10.getDishListDataes(_this10.rightIdAndType);
                     _this10.flavorDataes = [];
                   }
                 }).catch(function (err) {
                   console.error("添加购物车失败:", err);
                 });
-              case 9:
+              case 6:
               case "end":
                 return _context7.stop();
             }
@@ -23616,15 +23605,16 @@ var editHoppingCart = function editHoppingCart(params) {
 // 购物车新增接口-new
 exports.editHoppingCart = editHoppingCart;
 var newAddShoppingCartAdd = function newAddShoppingCartAdd(params) {
-  console.log("调用新增购物车API，参数:", params); // 添加调试日志
+  console.log("调用新增购物车API，参数:", params);
   return (0, _request.request)({
     url: '/user/shoppingCart/add',
     method: 'POST',
-    data: params,
-    // 使用 data 而不是 params
+    params: JSON.stringify(params),
+    // 重要：手动序列化
     header: {
-      'Content-Type': 'application/json',
-      'token': uni.getStorageSync('token') // 确保传递token
+      'Content-Type': 'application/json; charset=utf-8',
+      // 明确指定编码
+      'token': uni.getStorageSync('token')
     }
   });
 };
@@ -23632,15 +23622,15 @@ var newAddShoppingCartAdd = function newAddShoppingCartAdd(params) {
 // 购物车减菜接口-new
 exports.newAddShoppingCartAdd = newAddShoppingCartAdd;
 var newShoppingCartSub = function newShoppingCartSub(params) {
-  console.log("调用减少购物车API，参数:", params); // 添加调试日志
+  console.log("调用减少购物车API，参数:", params);
   return (0, _request.request)({
     url: '/user/shoppingCart/sub',
     method: 'POST',
-    data: params,
-    // 使用 data 而不是 params
+    params: JSON.stringify(params),
+    // 重要：手动序列化
     header: {
-      'Content-Type': 'application/json',
-      'token': uni.getStorageSync('token') // 确保传递token
+      'Content-Type': 'application/json; charset=utf-8',
+      'token': uni.getStorageSync('token')
     }
   });
 };

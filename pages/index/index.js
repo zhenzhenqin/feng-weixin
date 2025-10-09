@@ -399,35 +399,23 @@ export default {
 		},
 		// 加菜 - 添加菜品
 		async addDishAction(item, form) {
-			// 规格
-			if (
-				this.openMoreNormPop &&
-				(!this.flavorDataes || this.flavorDataes.length <= 0)
-			) {
-				uni.showToast({
-					title: "请选择规格",
-					icon: "none",
-				})
-				return false
-			}
+			// 规格检查...
 			this.openMoreNormPop = false
-			// 实时更新obj.newCardNumber新添加的字段----加入购物车数量number
-			this.tablewareNumber++
-			this.dishDetailes.dishNumber++
 
-			// 构建参数 - 只传递 goodId，移除其他字段
-			let params = {
-				goodId: item.id  // 只传递 goodId
+			// 确保数据正确传递
+			let requestData = {
+				goodId: item.id
 			}
 
-			console.log("发送的购物车参数:", params); // 调试日志
+			console.log("准备发送的数据:", requestData);
+			console.log("数据类型:", typeof requestData);
+			console.log("数据字符串化:", JSON.stringify(requestData));
 
-			newAddShoppingCartAdd(params)
+			// 立即发送，避免数据被修改
+			newAddShoppingCartAdd(requestData)
 				.then((res) => {
 					if (res.code === 1) {
-						// 调用一次购物车集合---初始化
 						this.getTableOrderDishListes()
-						// 重新调取刷新右侧具体菜品列表
 						this.getDishListDataes(this.rightIdAndType)
 						this.flavorDataes = []
 					}

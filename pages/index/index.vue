@@ -132,7 +132,7 @@ item.flavors.length === 0">
       <view class="footer_order_buttom" v-if="orderListData().length ===
 0">
         <view class="order_number">
-          <image src="../../static/btn_waiter_nor.png"
+          <image src="../../static/waiter_shoppingCart.png"
                  class="order_number_icon" mode=""></image>
         </view>
         <view class="order_price">
@@ -148,7 +148,7 @@ item.flavors.length === 0">
         <view class="orderCar" @click="() => (openOrderCartList =
 !openOrderCartList)">
           <view class="order_number">
-            <image src="../../static/btn_waiter_sel.png"
+            <image src="../../static/sel_shoppingCart.png"
                    class="order_number_icon" mode=""></image>
             <view class="order_dish_num">{{ orderDishNumber }}</view>
           </view>

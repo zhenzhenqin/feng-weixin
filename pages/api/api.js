@@ -158,31 +158,30 @@ export const editHoppingCart = (params) => {
 	})
 }
 
-
 // 购物车新增接口-new
 export const newAddShoppingCartAdd = (params) => {
-	console.log("调用新增购物车API，参数:", params); // 添加调试日志
+	console.log("调用新增购物车API，参数:", params);
 	return request({
 		url: '/user/shoppingCart/add',
 		method: 'POST',
-		data: params,  // 使用 data 而不是 params
+		params: JSON.stringify(params), // 重要：手动序列化
 		header: {
-			'Content-Type': 'application/json',
-			'token': uni.getStorageSync('token') // 确保传递token
+			'Content-Type': 'application/json; charset=utf-8', // 明确指定编码
+			'token': uni.getStorageSync('token')
 		}
 	})
 }
 
 // 购物车减菜接口-new
 export const newShoppingCartSub = (params) => {
-	console.log("调用减少购物车API，参数:", params); // 添加调试日志
+	console.log("调用减少购物车API，参数:", params);
 	return request({
 		url: '/user/shoppingCart/sub',
 		method: 'POST',
-		data: params,  // 使用 data 而不是 params
+		params: JSON.stringify(params), // 重要：手动序列化
 		header: {
-			'Content-Type': 'application/json',
-			'token': uni.getStorageSync('token') // 确保传递token
+			'Content-Type': 'application/json; charset=utf-8',
+			'token': uni.getStorageSync('token')
 		}
 	})
 }
