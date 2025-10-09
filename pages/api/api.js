@@ -161,20 +161,29 @@ export const editHoppingCart = (params) => {
 
 // 购物车新增接口-new
 export const newAddShoppingCartAdd = (params) => {
+	console.log("调用新增购物车API，参数:", params); // 添加调试日志
 	return request({
 		url: '/user/shoppingCart/add',
 		method: 'POST',
-		params
+		data: params,  // 使用 data 而不是 params
+		header: {
+			'Content-Type': 'application/json',
+			'token': uni.getStorageSync('token') // 确保传递token
+		}
 	})
 }
 
-
 // 购物车减菜接口-new
 export const newShoppingCartSub = (params) => {
+	console.log("调用减少购物车API，参数:", params); // 添加调试日志
 	return request({
 		url: '/user/shoppingCart/sub',
 		method: 'POST',
-		params
+		data: params,  // 使用 data 而不是 params
+		header: {
+			'Content-Type': 'application/json',
+			'token': uni.getStorageSync('token') // 确保传递token
+		}
 	})
 }
 

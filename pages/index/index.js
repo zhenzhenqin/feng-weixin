@@ -414,50 +414,14 @@ export default {
 			// 实时更新obj.newCardNumber新添加的字段----加入购物车数量number
 			this.tablewareNumber++
 			this.dishDetailes.dishNumber++
-			if (
-				this.orderListDataes &&
-				!this.orderListDataes.some((n) => n.id == item.dishId) &&
-				this.flavorDataes.length > 0
-			) {
-				item.flavorRemark = JSON.stringify(this.flavorDataes)
-			}
-			// 有sort字段是菜品
-			let dishFlavorDatas = ""
-			let flavorRemark = []
-			if (item.flavorRemark) {
-				flavorRemark = JSON.parse(item.flavorRemark)
-			}
-			if (item.dishFlavor !== "" && item.dishFlavor) {
-				dishFlavorDatas = item.dishFlavor
-			} else if (flavorRemark.length > 0) {
-				dishFlavorDatas = flavorRemark.join(',')
-			} else {
-				dishFlavorDatas = null
-			}
+
+			// 构建参数 - 只传递 goodId，移除其他字段
 			let params = {
-				dishFlavor: dishFlavorDatas,
+				goodId: item.id  // 只传递 goodId
 			}
-			if (item.type === 1) {
-				params = {
-					...params,
-					dishId: item.id,
-				}
-			} else if (item.type === 2) {
-				params = {
-					setmealId: item.id,
-				}
-			} else if (form === "购物车") {
-				if (item.dishId) {
-					params = {
-						...params,
-						dishId: item.dishId,
-					}
-				} else {
-					params = {
-						setmealId: item.setmealId,
-					}
-				}
-			}
+
+			console.log("发送的购物车参数:", params); // 调试日志
+
 			newAddShoppingCartAdd(params)
 				.then((res) => {
 					if (res.code === 1) {
@@ -468,7 +432,9 @@ export default {
 						this.flavorDataes = []
 					}
 				})
-				.catch((err) => { })
+				.catch((err) => {
+					console.error("添加购物车失败:", err);
+				})
 		},
 		// 加入购物车
 		addShop(item) {
@@ -481,43 +447,14 @@ export default {
 			// 实时更新obj.newCardNumber新添加的字段----加入购物车数量number
 			this.tablewareNumber--
 			this.dishDetailes.dishNumber--
-			let dishFlavorDatas = ""
-			let flavorRemark = []
-			if (item.flavorRemark) {
-				flavorRemark = JSON.parse(item.flavorRemark)
-			}
-			if (item.dishFlavor !== "" && item.dishFlavor) {
-				dishFlavorDatas = item.dishFlavor
-			} else if (flavorRemark.length > 0) {
-				dishFlavorDatas = flavorRemark[0]
-			} else {
-				dishFlavorDatas = null
-			}
+
+			// 构建参数 - 只传递 goodId，移除其他字段
 			let params = {
-				dishFlavor: dishFlavorDatas,
+				goodId: item.id  // 只传递 goodId
 			}
-			if (item.type === 1) {
-				params = {
-					...params,
-					dishId: item.id,
-				}
-			} else if (item.type === 2) {
-				params = {
-					// ...params,
-					setmealId: item.id,
-				}
-			} else if (form === "购物车") {
-				if (item.dishId) {
-					params = {
-						...params,
-						dishId: item.dishId,
-					}
-				} else {
-					params = {
-						setmealId: item.setmealId,
-					}
-				}
-			}
+
+			console.log("减少购物车参数:", params); // 调试日志
+
 			await newShoppingCartSub(params)
 				.then((res) => {
 					if (res.code === 1) {
@@ -527,7 +464,9 @@ export default {
 						this.getDishListDataes(this.rightIdAndType)
 					}
 				})
-				.catch((err) => { })
+				.catch((err) => {
+					console.error("减少购物车失败:", err);
+				})
 		},
 		// 清空购物车
 		clearCardOrder() {

@@ -22290,7 +22290,7 @@ var _default = {
     addDishAction: function addDishAction(item, form) {
       var _this10 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee7() {
-        var dishFlavorDatas, flavorRemark, params;
+        var params;
         return _regenerator.default.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
@@ -22309,46 +22309,14 @@ var _default = {
                 // 实时更新obj.newCardNumber新添加的字段----加入购物车数量number
                 _this10.tablewareNumber++;
                 _this10.dishDetailes.dishNumber++;
-                if (_this10.orderListDataes && !_this10.orderListDataes.some(function (n) {
-                  return n.id == item.dishId;
-                }) && _this10.flavorDataes.length > 0) {
-                  item.flavorRemark = JSON.stringify(_this10.flavorDataes);
-                }
-                // 有sort字段是菜品
-                dishFlavorDatas = "";
-                flavorRemark = [];
-                if (item.flavorRemark) {
-                  flavorRemark = JSON.parse(item.flavorRemark);
-                }
-                if (item.dishFlavor !== "" && item.dishFlavor) {
-                  dishFlavorDatas = item.dishFlavor;
-                } else if (flavorRemark.length > 0) {
-                  dishFlavorDatas = flavorRemark.join(',');
-                } else {
-                  dishFlavorDatas = null;
-                }
+
+                // 构建参数 - 只传递 goodId，移除其他字段
                 params = {
-                  dishFlavor: dishFlavorDatas
+                  goodId: item.id // 只传递 goodId
                 };
-                if (item.type === 1) {
-                  params = _objectSpread(_objectSpread({}, params), {}, {
-                    dishId: item.id
-                  });
-                } else if (item.type === 2) {
-                  params = {
-                    setmealId: item.id
-                  };
-                } else if (form === "购物车") {
-                  if (item.dishId) {
-                    params = _objectSpread(_objectSpread({}, params), {}, {
-                      dishId: item.dishId
-                    });
-                  } else {
-                    params = {
-                      setmealId: item.setmealId
-                    };
-                  }
-                }
+
+                console.log("发送的购物车参数:", params); // 调试日志
+
                 (0, _api.newAddShoppingCartAdd)(params).then(function (res) {
                   if (res.code === 1) {
                     // 调用一次购物车集合---初始化
@@ -22357,8 +22325,10 @@ var _default = {
                     _this10.getDishListDataes(_this10.rightIdAndType);
                     _this10.flavorDataes = [];
                   }
-                }).catch(function (err) {});
-              case 14:
+                }).catch(function (err) {
+                  console.error("添加购物车失败:", err);
+                });
+              case 9:
               case "end":
                 return _context7.stop();
             }
@@ -22376,7 +22346,7 @@ var _default = {
     redDishAction: function redDishAction(item, form) {
       var _this11 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee8() {
-        var dishFlavorDatas, flavorRemark, params;
+        var params;
         return _regenerator.default.wrap(function _callee8$(_context8) {
           while (1) {
             switch (_context8.prev = _context8.next) {
@@ -22384,42 +22354,14 @@ var _default = {
                 // 实时更新obj.newCardNumber新添加的字段----加入购物车数量number
                 _this11.tablewareNumber--;
                 _this11.dishDetailes.dishNumber--;
-                dishFlavorDatas = "";
-                flavorRemark = [];
-                if (item.flavorRemark) {
-                  flavorRemark = JSON.parse(item.flavorRemark);
-                }
-                if (item.dishFlavor !== "" && item.dishFlavor) {
-                  dishFlavorDatas = item.dishFlavor;
-                } else if (flavorRemark.length > 0) {
-                  dishFlavorDatas = flavorRemark[0];
-                } else {
-                  dishFlavorDatas = null;
-                }
+
+                // 构建参数 - 只传递 goodId，移除其他字段
                 params = {
-                  dishFlavor: dishFlavorDatas
+                  goodId: item.id // 只传递 goodId
                 };
-                if (item.type === 1) {
-                  params = _objectSpread(_objectSpread({}, params), {}, {
-                    dishId: item.id
-                  });
-                } else if (item.type === 2) {
-                  params = {
-                    // ...params,
-                    setmealId: item.id
-                  };
-                } else if (form === "购物车") {
-                  if (item.dishId) {
-                    params = _objectSpread(_objectSpread({}, params), {}, {
-                      dishId: item.dishId
-                    });
-                  } else {
-                    params = {
-                      setmealId: item.setmealId
-                    };
-                  }
-                }
-                _context8.next = 10;
+
+                console.log("减少购物车参数:", params); // 调试日志
+                _context8.next = 6;
                 return (0, _api.newShoppingCartSub)(params).then(function (res) {
                   if (res.code === 1) {
                     // 调用一次购物车集合---初始化
@@ -22427,8 +22369,10 @@ var _default = {
                     // 重新调取刷新右侧具体菜品列表
                     _this11.getDishListDataes(_this11.rightIdAndType);
                   }
-                }).catch(function (err) {});
-              case 10:
+                }).catch(function (err) {
+                  console.error("减少购物车失败:", err);
+                });
+              case 6:
               case "end":
                 return _context8.stop();
             }
@@ -23481,7 +23425,7 @@ module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exp
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -23672,20 +23616,32 @@ var editHoppingCart = function editHoppingCart(params) {
 // 购物车新增接口-new
 exports.editHoppingCart = editHoppingCart;
 var newAddShoppingCartAdd = function newAddShoppingCartAdd(params) {
+  console.log("调用新增购物车API，参数:", params); // 添加调试日志
   return (0, _request.request)({
     url: '/user/shoppingCart/add',
     method: 'POST',
-    params: params
+    data: params,
+    // 使用 data 而不是 params
+    header: {
+      'Content-Type': 'application/json',
+      'token': uni.getStorageSync('token') // 确保传递token
+    }
   });
 };
 
 // 购物车减菜接口-new
 exports.newAddShoppingCartAdd = newAddShoppingCartAdd;
 var newShoppingCartSub = function newShoppingCartSub(params) {
+  console.log("调用减少购物车API，参数:", params); // 添加调试日志
   return (0, _request.request)({
     url: '/user/shoppingCart/sub',
     method: 'POST',
-    params: params
+    data: params,
+    // 使用 data 而不是 params
+    header: {
+      'Content-Type': 'application/json',
+      'token': uni.getStorageSync('token') // 确保传递token
+    }
   });
 };
 
@@ -23896,6 +23852,7 @@ var queryOrdersCheckStatus = function queryOrdersCheckStatus(params) {
   });
 };
 exports.queryOrdersCheckStatus = queryOrdersCheckStatus;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 
