@@ -34,6 +34,11 @@
           @timeClick="timeClick"
         ></address-pop>
         <!-- end -->
+        <!-- 在 <address-pop> 和 <dish-detail> 之间添加品牌介绍 -->
+        <view class="brand-introduction">
+          <text class="brand-text">🍯 蜂享自然专注提供纯天然优质蜂蜜产品，源自深山无污染环境，保证每一滴蜂蜜的纯净与营养</text>
+        </view>
+
         <!-- 订单明细 -->
         <view class="order_list_cont">
           <!-- 菜品详情 -->
@@ -71,7 +76,7 @@
       <view class="footer_order_buttom order_form">
         <view class="order_number">
           <image
-            src="../../static/btn_waiter_sel.png"
+            src="../../static/sel_shoppingCart.png"
             class="order_number_icon"
             mode=""
           ></image>

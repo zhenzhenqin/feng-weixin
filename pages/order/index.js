@@ -252,17 +252,18 @@ export default {
 			return `${baseUrl}/common/download?name=${image}`
 		},
 		// 订单里和总订单价格计算
+		// 在 computOrderInfo 方法中添加调试日志
 		computOrderInfo() {
+			console.log('orderListDataes:', this.orderListDataes);
 			let oriData = this.orderListDataes
 			this.orderDishNumber = this.orderDishPrice = 0
 			this.orderDishPrice = 0
 			oriData.map((n, i) => {
-				// this.orderDishPrice += n.number * n.price
+				console.log('商品信息:', n);
 				this.orderDishPrice += n.number * n.amount
 				this.orderDishNumber += n.number
-				console.log(n);
 			})
-			this.orderDishPrice = this.orderDishPrice + this.deliveryFee() + this.orderDishNumber
+			console.log('商品总金额:', this.orderDishPrice);
 		},
 		// 返回上一级
 		goBack() {
@@ -289,7 +290,6 @@ export default {
 				estimatedDeliveryTime: this.arrivalTime === '立即派送' ? presentFormat() : dateFormat(this.isTomorrow,
 					this.arrivalTime),
 				deliveryStatus: this.arrivalTime === '立即派送' ? 1 : 0,
-				remark: this.remark,
 				tablewareStatus: this.status,
 				tablewareNumber: this.num,
 				packAmount: this.orderDishNumber,

@@ -13085,18 +13085,19 @@ var _default = {
       return "".concat(_env.baseUrl, "/common/download?name=").concat(image);
     },
     // 订单里和总订单价格计算
+    // 在 computOrderInfo 方法中添加调试日志
     computOrderInfo: function computOrderInfo() {
       var _this7 = this;
+      console.log('orderListDataes:', this.orderListDataes);
       var oriData = this.orderListDataes;
       this.orderDishNumber = this.orderDishPrice = 0;
       this.orderDishPrice = 0;
       oriData.map(function (n, i) {
-        // this.orderDishPrice += n.number * n.price
+        console.log('商品信息:', n);
         _this7.orderDishPrice += n.number * n.amount;
         _this7.orderDishNumber += n.number;
-        console.log(n);
       });
-      this.orderDishPrice = this.orderDishPrice + this.deliveryFee() + this.orderDishNumber;
+      console.log('商品总金额:', this.orderDishPrice);
     },
     // 返回上一级
     goBack: function goBack() {
@@ -13109,8 +13110,7 @@ var _default = {
     },
     // 支付下单
     payOrderHandle: function payOrderHandle() {
-      var _params,
-        _this8 = this;
+      var _this8 = this;
       this.isHandlePy = true;
       if (!this.address) {
         uni.showToast({
@@ -13119,13 +13119,19 @@ var _default = {
         });
         return false;
       }
-      var params = (_params = {
+      var params = {
         payMethod: 1,
         addressBookId: this.addressBookId,
         remark: this.remark,
         estimatedDeliveryTime: this.arrivalTime === '立即派送' ? (0, _index.presentFormat)() : (0, _index.dateFormat)(this.isTomorrow, this.arrivalTime),
-        deliveryStatus: this.arrivalTime === '立即派送' ? 1 : 0
-      }, (0, _defineProperty2.default)(_params, "remark", this.remark), (0, _defineProperty2.default)(_params, "tablewareStatus", this.status), (0, _defineProperty2.default)(_params, "tablewareNumber", this.num), (0, _defineProperty2.default)(_params, "packAmount", this.orderDishNumber), (0, _defineProperty2.default)(_params, "amount", this.orderDishPrice), (0, _defineProperty2.default)(_params, "shopId", this.shopInfo().shopId), (0, _defineProperty2.default)(_params, "deliveryFee", this.deliveryFee()), _params);
+        deliveryStatus: this.arrivalTime === '立即派送' ? 1 : 0,
+        tablewareStatus: this.status,
+        tablewareNumber: this.num,
+        packAmount: this.orderDishNumber,
+        amount: this.orderDishPrice,
+        shopId: this.shopInfo().shopId,
+        deliveryFee: this.deliveryFee()
+      };
       (0, _api.submitOrderSubmit)(params).then(function (res) {
         if (res.code === 1) {
           _this8.isHandlePy = false;
@@ -18637,12 +18643,6 @@ var areaData = [[[{
   "label": "上城区",
   "value": "330102"
 }, {
-  "label": "下城区",
-  "value": "330103"
-}, {
-  "label": "江干区",
-  "value": "330104"
-}, {
   "label": "拱墅区",
   "value": "330105"
 }, {
@@ -18664,14 +18664,20 @@ var areaData = [[[{
   "label": "临安区",
   "value": "330112"
 }, {
+  "label": "临平区",
+  "value": "330113"
+}, {
+  "label": "钱塘区",
+  "value": "330114"
+}, {
+  "label": "建德市",
+  "value": "330182"
+}, {
   "label": "桐庐县",
   "value": "330122"
 }, {
   "label": "淳安县",
   "value": "330127"
-}, {
-  "label": "建德市",
-  "value": "330182"
 }], [{
   "label": "海曙区",
   "value": "330203"

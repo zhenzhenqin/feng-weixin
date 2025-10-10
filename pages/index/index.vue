@@ -34,7 +34,7 @@
               <view class="word">蜂享自然为您提供纯天然优质蜂蜜产品</view>
               <view class="address">
                 <icon class="honey-icon">🐝</icon>
-                {{ shopInfo().shopAddress || "商家店铺获取中.." }}
+                {{ shopInfo().shopAddress || "中国蜂产业引领者" }}
               </view>
             </view>
             <view>

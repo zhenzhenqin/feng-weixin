@@ -47,7 +47,6 @@
       <!-- 右下角固定加入购物车按钮 -->
       <view class="fixed_add_cart" @click="handleAddToCart">
         <view class="cart_icon_wrapper">
-          <image src="../../../static/cart_add.png" class="fixed_cart_icon"></image>
           <view class="cart_badge" v-if="dishDetailes.dishNumber > 0">{{ dishDetailes.dishNumber }}</view>
         </view>
         <text class="fixed_cart_text">加入购物车</text>

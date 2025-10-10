@@ -20,7 +20,7 @@
                 :class="{ beizhu_text_ios: platform === 'ios' }"
                 placeholder-class="textarea-placeholder"
                 v-model="remark"
-                placeholder="无接触配送，将商品挂家门口或放前台，地址封闭管理时请电话联系"
+                placeholder="蜂蜜产品需防震防压，建议选择无接触配送，将商品放置指定位置，收货时请注意检查包装"
                 >{{ getVal }}</textarea
               >
               <text class="numText"

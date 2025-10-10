@@ -5,7 +5,7 @@
 			<image class="test_image" src="../../../static/center.png"></image>
 			<span class="person-title">个人中心</span>
 		</view>
-		<image class="index_bg" src="../../../static/bg.png"></image>
+		<image class="index_bg" src="../../../static/bg1.png"></image>
 		<!-- <view class="leftNav" >
 			<image class="logo" src="/static/logo.png"></image>
 		</view> -->

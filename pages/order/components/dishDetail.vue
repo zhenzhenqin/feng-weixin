@@ -32,12 +32,6 @@
         </view>
       </view>
       <view class="orderList">
-        <view class="orderInfo">
-          <text class="text">打包费</text><text class="may">￥</text>{{ orderDishNumber }}
-        </view>
-        <view class="orderInfo">
-          <text class="text">配送费</text><text class="may">￥</text>{{ deliveryFee }}
-        </view>
         <view class="totalMoney">
           合计<text class="text"><text>￥</text>{{ orderDishPrice.toFixed(2) }}</text>
         </view>

@@ -19,27 +19,12 @@
           <text class="name_2">{{ phoneNumber }}</text>
         </view>
         <view v-if="address" class="infoTip"
-          >为减少接触，降低风险，推荐使用无接触配送</view
-        >
+          >好蜂蜜 选蜂享</view>
       </view>
       <view class="address_image">
         <view class="to_right"></view>
       </view>
       <!-- end -->
-    </view>
-    <!-- 送达时间 -->
-    <view class="bottom">
-      <div class="bottomTime" @click="openTimePopuo('bottom')">
-        <text class="time_name_disabled">立即送出</text>
-        <view class="address_image">
-          <text class="">{{ arrivalTime }}送达</text>
-          <view class="to_right"></view>
-        </view>
-      </div>
-
-      <view v-if="address" class="infoTip"
-        >因配送订单较多，送达时间可能波动</view
-      >
     </view>
     <!-- end -->
     <!-- 时间弹层 -->
