@@ -85,10 +85,10 @@ menu-scroll-view" :scroll-top="scrollTop + 100"
                   item.description || item.name
                 }}
               </view>
-              <view class="dish_sales">
+<!--              <view class="dish_sales">
                 <text class="sales-icon">📈</text>
                 月销量{{ item.sales || 0 }}
-              </view>
+              </view>-->
               <view class="dish_price">
                 <text class="ico">￥</text>
                 {{ item.price.toFixed(2) }}
@@ -106,11 +106,6 @@ item.flavors.length === 0">
                 <!-- 加菜 -->
                 <image src="../../static/btn_add.png" class="dish_add"
                        @click="addDishAction(item, '普通')"></image>
-              </view>
-              <view class="dish_active_btn" v-else>
-                <view class="check_but"
-                      @click="moreNormDataesHandle(item)">选择规格
-                </view>
               </view>
             </view>
           </view>

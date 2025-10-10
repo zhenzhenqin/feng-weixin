@@ -23,6 +23,7 @@ export const getTableOrderDishList = (params) =>
 		method: 'GET',
 		params
 	})
+
 // 获取菜品规格
 export const getMoreNorm = (params) =>
 	request({
@@ -32,15 +33,17 @@ export const getMoreNorm = (params) =>
 	})
 
 
-// 获取商品详情
-export const getDishDetail = (params) =>
+// 根据商品id获取商品详情）
+export const getGoodDetail = (id) =>
 	request({
-		url: `/user/dish/setmealDishList/${params.setmealId}`,
+		url: '/user/dish/detail',
 		method: 'GET',
-		params,
+		params: {
+			id: id  // 修复：直接使用传入的id参数
+		}
 	})
 
-// 根据分类获取菜品列表 - 使用新的后端接口
+// 根据分类获取商品列表 - 使用新的后端接口
 export const getDishList = (params) =>
 	request({
 		url: `/user/dish/list`,
@@ -100,7 +103,7 @@ export const getCategoryList = () => {
 	})
 }
 
-// 查询菜品管理列表 - 使用新的后端接口
+// 根据分类id获取商品列表
 export const dishListByCategoryId = (params) => {
 	return request({
 		url: '/user/dish/list',

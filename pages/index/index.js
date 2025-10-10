@@ -14,6 +14,7 @@ import {
 	delShoppingCart,
 	querySetmealDishById,
 	getMerchantInfo,
+	getGoodDetail
 } from "../api/api.js"
 import { mapState, mapMutations } from "vuex"
 import { baseUrl } from "../../utils/env"
@@ -402,26 +403,47 @@ export default {
 			// 规格检查...
 			this.openMoreNormPop = false
 
-			// 确保数据正确传递
+			// 确保数据正确传递-
 			let requestData = {
 				goodId: item.id
 			}
 
 			console.log("准备发送的数据:", requestData);
-			console.log("数据类型:", typeof requestData);
-			console.log("数据字符串化:", JSON.stringify(requestData));
 
 			// 立即发送，避免数据被修改
 			newAddShoppingCartAdd(requestData)
 				.then((res) => {
 					if (res.code === 1) {
-						this.getTableOrderDishListes()
-						this.getDishListDataes(this.rightIdAndType)
-						this.flavorDataes = []
+						// 显示添加成功提示
+						uni.showToast({
+							title: '添加成功',
+							icon: 'success',
+							duration: 1000
+						});
+
+
+						// 更新购物车数据
+						this.getTableOrderDishListes();
+						this.getDishListDataes(this.rightIdAndType);
+						this.flavorDataes = [];
+
+						// 更新详情界面的数量显示
+						if (this.dishDetailes.id === item.id) {
+							this.dishDetailes.dishNumber = (this.dishDetailes.dishNumber || 0) + 1;
+						}
+					} else {
+						uni.showToast({
+							title: res.msg || '添加失败',
+							icon: 'none'
+						});
 					}
 				})
 				.catch((err) => {
 					console.error("添加购物车失败:", err);
+					uni.showToast({
+						title: '网络错误，请重试',
+						icon: 'none'
+					});
 				})
 		},
 		// 加入购物车
@@ -468,23 +490,61 @@ export default {
 				})
 				.catch((err) => { })
 		},
-		// 打开菜品牌详情
-		openDetailHandle(item) {
-			this.dishDetailes = item
-			if (item.type === 2) {
-				querySetmealDishById({
-					id: item.id,
-				})
-					.then((res) => {
-						if (res.code === 1) {
-							this.openDetailPop = true
-							this.dishMealData = res.data
-						}
-					})
-					.catch((err) => { })
-			} else {
-				this.openDetailPop = true
+		// 打开商品详情 - 修复价格显示问题
+		async openDetailHandle(item) {
+			try {
+				console.log('打开商品详情，商品信息:', item);
+				this.setLodding(true);
+
+				let detailData = null;
+
+				// 直接使用商品列表数据，确保价格字段存在
+				detailData = {
+					...item,
+					type: 1,
+					dishNumber: item.dishNumber || 0,
+					// 确保价格字段存在
+					price: item.price || 0,
+					description: item.description || `${item.name} - 蜂享自然优质蜂蜜产品`,
+					flavors: item.flavors || [],
+					// 添加商品规格信息
+					specifications: [
+						{ name: '净含量', value: '500g' },
+						{ name: '产地', value: '深山蜂场' },
+						{ name: '保质期', value: '24个月' }
+					]
+				};
+
+				this.dishDetailes = detailData;
+				this.openDetailPop = true;
+				console.log('商品详情数据:', detailData);
+
+			} catch (error) {
+				console.error('打开详情失败:', error);
+				uni.showToast({
+					title: '打开详情失败',
+					icon: 'none'
+				});
+			} finally {
+				this.setLodding(false);
 			}
+		},
+
+		// 从商品项构建详情数据
+		buildDetailDataFromItem(item) {
+			return {
+				...item,
+				type: 1,
+				dishNumber: item.dishNumber || 0,
+				description: item.description || `${item.name} - 蜂享自然优质蜂蜜产品`,
+				flavors: item.flavors || [],
+				// 添加商品规格信息
+				specifications: [
+					{ name: '净含量', value: '500g' },
+					{ name: '产地', value: '深山蜂场' },
+					{ name: '保质期', value: '24个月' }
+				]
+			};
 		},
 		// 关闭菜品详情
 		dishClose() {
