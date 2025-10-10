@@ -254,16 +254,16 @@ export default {
 		// 订单里和总订单价格计算
 		// 在 computOrderInfo 方法中添加调试日志
 		computOrderInfo() {
-			console.log('orderListDataes:', this.orderListDataes);
+			//console.log('orderListDataes:', this.orderListDataes);
 			let oriData = this.orderListDataes
 			this.orderDishNumber = this.orderDishPrice = 0
 			this.orderDishPrice = 0
 			oriData.map((n, i) => {
-				console.log('商品信息:', n);
+				//console.log('商品信息:', n);
 				this.orderDishPrice += n.number * n.amount
 				this.orderDishNumber += n.number
 			})
-			console.log('商品总金额:', this.orderDishPrice);
+			//console.log('商品总金额:', this.orderDishPrice);
 		},
 		// 返回上一级
 		goBack() {

@@ -13088,16 +13088,16 @@ var _default = {
     // 在 computOrderInfo 方法中添加调试日志
     computOrderInfo: function computOrderInfo() {
       var _this7 = this;
-      console.log('orderListDataes:', this.orderListDataes);
+      //console.log('orderListDataes:', this.orderListDataes);
       var oriData = this.orderListDataes;
       this.orderDishNumber = this.orderDishPrice = 0;
       this.orderDishPrice = 0;
       oriData.map(function (n, i) {
-        console.log('商品信息:', n);
+        //console.log('商品信息:', n);
         _this7.orderDishPrice += n.number * n.amount;
         _this7.orderDishNumber += n.number;
       });
-      console.log('商品总金额:', this.orderDishPrice);
+      //console.log('商品总金额:', this.orderDishPrice);
     },
     // 返回上一级
     goBack: function goBack() {
