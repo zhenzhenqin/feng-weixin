@@ -33,16 +33,6 @@
           </view>
         </view>
         <view class="orderList">
-          <view class="orderInfo">
-            <text class="text">打包费</text>
-            <text class="may">￥</text>
-            {{ orderDetailsData.packAmount }}
-          </view>
-          <view class="orderInfo">
-            <text class="text">配送费</text>
-            <text class="may">￥</text>
-            {{ orderDetailsData.deliveryFee }}
-          </view>
           <view class="totalMoney">
             合计
             <text class="text">

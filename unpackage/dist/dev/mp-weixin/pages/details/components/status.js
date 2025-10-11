@@ -188,6 +188,11 @@ var _index = __webpack_require__(/*! @/utils/index */ 58);
 //
 //
 //
+//
+//
+//
+//
+//
 var _default2 = {
   // 获取父级传的数据
   props: {
@@ -235,6 +240,7 @@ var _default2 = {
       });
     },
     // 申请退款
+    // 联系商家进行退款弹层
     handleRefund: function handleRefund(type) {
       this.$emit("handleRefund", type);
     },

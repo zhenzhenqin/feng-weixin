@@ -193,9 +193,9 @@ export default {
 		},
 		// 联系商家进行退款弹层
 		handleRefund(type) {
-			this.showConfirm = false
-			this.openPopuos(type)
-			this.textTip = '请联系商家进行退款！'
+			this.showConfirm = false;
+			this.textTip = '请联系商家进行退款！';
+			this.$refs.commonPopup.open(type);
 		},
 		// 拨打电话弹层
 		handlePhone(type, phone) {
@@ -210,8 +210,8 @@ export default {
 		},
 		// closePopupInfo
 		closePopupInfo(type) {
-			this.$refs.status.$refs.commonPopup.close(type)
-			this.getBaseData(this.orderId)
+			this.$refs.commonPopup.close(type);  // 使用正确的弹窗引用
+			this.getBaseData(this.orderId);
 		},
 		// 立即支付
 		handlePay(id) {

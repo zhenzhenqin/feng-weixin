@@ -3,8 +3,9 @@
   <view class="container phoneCon">
     <uni-popup ref="popup" @change="change" class="popupBox">
       <view class="popup-content">
-        <view>{{ phoneData }}</view>
-        <view @click="call">呼叫</view>
+        <view>19588105375</view>
+        <view >请拨打</view>
+<!--        <view @click="call">呼叫</view>-->
         <view @click="closePopup" class="closePopup">取消</view>
       </view>
     </uni-popup>

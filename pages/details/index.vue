@@ -8,8 +8,8 @@
       <view class="order_content_box" scroll-y="true" scroll-top="0rpx">
         <!-- 支付状态 -->
         <status ref="status" :timeout="timeout" :orderDetailsData="orderDetailsData" :rocallTime="rocallTime"
-          @statusWord="statusWord" @paymentTime="paymentTime" @handlePay="handlePay" @handleReminder="handleReminder"
-          @handleRefund="handleRefund"></status>
+                @statusWord="statusWord" @paymentTime="paymentTime" @handlePay="handlePay" @handleReminder="handleReminder"
+                @handleRefund="handleRefund" @oneMoreOrder="oneMoreOrder"></status>
         <!-- end -->
         <!-- 订单详情 -->
         <order-detail :orderDataes="orderDataes" :orderDetailsData="orderDetailsData"
@@ -53,8 +53,8 @@
       <view class="container phoneCon">
         <uni-popup ref="phone" @change="change" class="popupBox">
           <view class="popup-content">
-            <view>{{ phone }}</view>
-            <view @click="call">呼叫</view>
+            <view>19588105375</view>
+            <view @click="call">请拨打呼叫</view>
             <view @click="closePopup" class="closePopup">取消</view>
           </view>
         </uni-popup>

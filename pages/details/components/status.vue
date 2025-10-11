@@ -19,24 +19,29 @@
           </view>
         </view>
         <view class="againBtn">
-          <button class="new_btn" type="default" @click="handleCancel('center', orderDetailsData)" v-if="(!timeout && orderDetailsData.status === 1) ||
+<!--          <button class="new_btn" type="default" @click="handleCancel('center', orderDetailsData)" v-if="(!timeout && orderDetailsData.status === 1) ||
             orderDetailsData.status === 2 ||
             orderDetailsData.status === 3 ||
             orderDetailsData.status === 4
             ">
             取消订单
+          </button>-->
+
+          <button class="new_btn" type="default" @click="handleRefund('center')">
+            申请退款
           </button>
+
           <button class="new_btn btn" type="default" @click="handlePay(orderDetailsData.id)"
             v-if="!timeout && orderDetailsData.status === 1">
             立即支付
           </button>
-          <button class="new_btn btn" type="default" @click="handleReminder('center', orderDetailsData.id)"
+<!--          <button class="new_btn btn" type="default" @click="handleReminder('center', orderDetailsData.id)"
             v-if="orderDetailsData.status === 2">
             催单
-          </button>
-          <button class="new_btn" type="default" @click="handleRefund('center')" v-if="orderDetailsData.status == 5">
+          </button>-->
+<!--          <button class="new_btn" type="default" @click="handleRefund('center')" v-if="orderDetailsData.status == 5">
             申请退款
-          </button>
+          </button>-->
           <button class="new_btn" type="default" @click="oneMoreOrder(orderDetailsData.id)"
             v-if="orderDetailsData.status !== 7">
             再来一单
@@ -97,6 +102,7 @@ export default {
       this.$emit("handleReminder", { type: type, id: id });
     },
     // 申请退款
+    // 联系商家进行退款弹层
     handleRefund(type) {
       this.$emit("handleRefund", type);
     },

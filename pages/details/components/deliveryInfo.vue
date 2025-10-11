@@ -2,14 +2,7 @@
 <template>
   <view class="box">
     <view class="orderBaseInfo">
-      <view>
-        <view>期望时间</view>
-        <view>{{
-          orderDetailsData.deliveryStatus === 1
-          ? "立即送出"
-          : orderDetailsData.estimatedDeliveryTime
-        }}</view>
-      </view>
+
       <view>
         <view>配送地址</view>
         <view>
