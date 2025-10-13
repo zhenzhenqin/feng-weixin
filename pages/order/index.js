@@ -274,6 +274,8 @@ export default {
 		},
 		// 支付下单
 		payOrderHandle() {
+			console.log('提交订单时的remark值:', this.remark); // 添加调试日志
+
 			this.isHandlePy = true
 
 			if (!this.address) {
@@ -297,6 +299,8 @@ export default {
 				shopId: this.shopInfo().shopId,
 				deliveryFee: this.deliveryFee()
 			}
+
+			console.log('提交订单的完整参数:', params);
 
 			submitOrderSubmit(params).then(res => {
 				if (res.code === 1) {
@@ -431,5 +435,13 @@ export default {
 			if (e.changedTouches[0].clientY > 400) {
 			}
 		}
+	},
+	onShow() {
+		// 从备注页面返回时更新备注数据
+		if (this.remarkData) {
+			this.remark = this.remarkData() || '';
+			console.log('更新后的remark值:', this.remark); // 添加调试日志
+		}
 	}
+
 }

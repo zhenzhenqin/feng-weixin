@@ -62,15 +62,15 @@ export const statusWord = (status, time) => {
 		case 1:
 			return '待付款'
 		case 2:
-			return '等待商家接单'
+			return '等待商家发货'
 		case 3:
-			return '等待骑手接单'
+			return '商品已发货'
 		case 4:
-			return '派送中'
+			return '商品已完成'
 		case 5:
-			return '派送中'
+			return '商家取消接单'
 		case 6:
-			return '已完成'
+			return '已退款'
 		case 7:
 			return '已取消'
 	}

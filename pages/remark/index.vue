@@ -83,10 +83,10 @@ export default {
     },
     // 保存返回订单页
     handleSaveRemark() {
+      this.setRemark(this.remark);  // 先保存备注
       uni.redirectTo({
         url: "/pages/order/index",
       });
-      this.setRemark(this.remark);
     },
     validateTextLength(value) {
       // 中文、中文标点、全角字符按1长度，英文、英文符号、数字按0.5长度计算

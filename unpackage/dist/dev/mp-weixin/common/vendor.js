@@ -13111,6 +13111,8 @@ var _default = {
     // 支付下单
     payOrderHandle: function payOrderHandle() {
       var _this8 = this;
+      console.log('提交订单时的remark值:', this.remark); // 添加调试日志
+
       this.isHandlePy = true;
       if (!this.address) {
         uni.showToast({
@@ -13132,6 +13134,7 @@ var _default = {
         shopId: this.shopInfo().shopId,
         deliveryFee: this.deliveryFee()
       };
+      console.log('提交订单的完整参数:', params);
       (0, _api.submitOrderSubmit)(params).then(function (res) {
         if (res.code === 1) {
           _this8.isHandlePy = false;
@@ -13258,7 +13261,14 @@ var _default = {
     touchstart: function touchstart(e) {
       if (e.changedTouches[0].clientY > 400) {}
     }
-  })
+  }),
+  onShow: function onShow() {
+    // 从备注页面返回时更新备注数据
+    if (this.remarkData) {
+      this.remark = this.remarkData() || '';
+      console.log('更新后的remark值:', this.remark); // 添加调试日志
+    }
+  }
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
@@ -13345,15 +13355,15 @@ var statusWord = function statusWord(status, time) {
     case 1:
       return '待付款';
     case 2:
-      return '等待商家接单';
+      return '等待商家发货';
     case 3:
-      return '等待骑手接单';
+      return '商品已发货';
     case 4:
-      return '派送中';
+      return '商品已完成';
     case 5:
-      return '派送中';
+      return '商家取消接单';
     case 6:
-      return '已完成';
+      return '已退款';
     case 7:
       return '已取消';
   }
