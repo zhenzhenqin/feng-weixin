@@ -1,8 +1,7 @@
 {
   "description": "项目配置文件。",
   "packOptions": {
-    "ignore": [],
-    "include": []
+    "ignore": []
   },
   "setting": {
     "urlCheck": false,
@@ -10,30 +9,35 @@
     "postcss": false,
     "minified": true,
     "newFeature": true,
-    "bigPackageSizeSupport": true,
-    "babelSetting": {
-      "ignore": [],
-      "disablePlugins": [],
-      "outputPath": ""
-    }
+    "bigPackageSizeSupport": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.26.2",
+  "libVersion": "",
   "appid": "wx07df1814836af599",
   "projectname": "sky-take-out-user-mp",
   "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "current": -1,
+      "list": []
+    },
     "miniprogram": {
+      "current": 0,
       "list": [
         {
           "name": "历史订单",
-          "pathName": "pages/historyOrder/historyOrder",
-          "query": ""
+          "query": "",
+          "id": 0,
+          "pathName": "pages/historyOrder/historyOrder"
         }
       ]
     }
-  },
-  "editorSetting": {
-    "tabIndent": "insertSpaces",
-    "tabSize": 2
   }
 }
