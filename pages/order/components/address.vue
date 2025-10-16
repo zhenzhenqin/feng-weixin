@@ -174,7 +174,13 @@ export default {
     cryptoName() {
       console.log('组件接收的gender值:', this.gender);
       console.log('Vuex中的gender值:', this.$store.state.gender);
-      if (this.$store.state.gender == 0 || this.$store.state.gender == "0") {
+
+      // 优先使用组件传入的gender值，如果没有则使用Vuex中的值
+      const gender = this.gender !== undefined && this.gender !== -1
+          ? this.gender
+          : this.$store.state.gender;
+
+      if (gender == 0 || gender == "0") {
         // 男
         console.log('性别判断为男性');
         return this.nickName.charAt(0) + "先生";

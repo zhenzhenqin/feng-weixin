@@ -12954,7 +12954,8 @@ var _default = {
               _this2.address = newAddress.provinceName + newAddress.cityName + newAddress.districtName + newAddress.detail;
               _this2.phoneNumber = newAddress.phone;
               _this2.nickName = newAddress.consignee;
-              _this2.gender = newAddress.sex;
+              // 确保 gender 是数字类型
+              _this2.gender = parseInt(newAddress.sex);
               _this2.addressBookId = newAddress.id;
               _this2.addressLabel = (0, _index.getLableVal)(newAddress.label);
               _context.next = 19;

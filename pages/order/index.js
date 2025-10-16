@@ -148,7 +148,8 @@ export default {
 			this.address = newAddress.provinceName + newAddress.cityName + newAddress.districtName + newAddress.detail
 			this.phoneNumber = newAddress.phone
 			this.nickName = newAddress.consignee
-			this.gender = newAddress.sex
+			// 确保 gender 是数字类型
+			this.gender = parseInt(newAddress.sex)
 
 			this.addressBookId = newAddress.id
 			this.addressLabel = getLableVal(newAddress.label)

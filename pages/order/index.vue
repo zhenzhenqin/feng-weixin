@@ -21,6 +21,7 @@
           :tagLabel="tagLabel"
           :addressLabel="addressLabel"
           :nickName="nickName"
+          :gender="gender"
           :phoneNumber="phoneNumber"
           :arrivalTime="arrivalTime"
           :popleft="popleft"
